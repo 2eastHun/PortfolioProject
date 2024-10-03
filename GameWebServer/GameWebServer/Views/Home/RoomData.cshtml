@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "RoomData";
+}
+<h1>유저 정보</h1>
+</br>
+</br>
+</br>
+<h3>방 ID  &nbsp &nbsp 방 이름 &nbsp &nbsp 유저1 ID &nbsp &nbsp 유저1 이름&nbsp &nbsp 유저2 ID &nbsp &nbsp 유저2 이름&nbsp &nbsp 시작?</h3>
+
+
+
+@for (int i = 0; i < ViewBag.roomDataCount; i++)
+{
+    <h1>@ViewBag.roomList[i].room_id &nbsp &nbsp @ViewBag.roomList[i].room_name &nbsp &nbsp
+        @ViewBag.roomList[i].player1_id &nbsp &nbsp @ViewBag.roomList[i].player1_name &nbsp &nbsp
+        @ViewBag.roomList[i].player2_id &nbsp &nbsp @ViewBag.roomList[i].player2_name &nbsp &nbsp
+        @ViewBag.roomList[i].is_playing
+    </h1>
+}

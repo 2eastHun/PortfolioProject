@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "PlayerData";
+}
+<h1>유저 정보</h1>
+</br>
+</br>
+</br>
+<h3>유저 ID  &nbsp &nbsp 유저 이름 &nbsp &nbsp 세션ID &nbsp &nbsp 로그인 상태</h3>
+
+
+
+@for(int i = 0; i<ViewBag.playerDataCount; i++)
+{
+    <h1>@ViewBag.playerList[i].player_id &nbsp &nbsp @ViewBag.playerList[i].player_name &nbsp &nbsp @ViewBag.playerList[i].server_session &nbsp &nbsp @ViewBag.playerList[i].is_login</h1>
+}
+
+<%    sql = "select * from RoomData;"    QueryToJSON(db, sql).Flush %>
+
+@* @foreach (var str in ViewBag.playerID)
+{
+    @Html.Raw(str);
+}
+&nbsp &nbsp
+@foreach (var str in ViewBag.playerName)
+{
+    @Html.Raw(str);
+}
+&nbsp &nbsp
+@foreach (var str in ViewBag.serverSeesion)
+{
+    @Html.Raw(str);
+}
+&nbsp &nbsp
+@foreach (var str in ViewBag.islogin)
+{
+    @Html.Raw(str);
+}
+<br/> *@

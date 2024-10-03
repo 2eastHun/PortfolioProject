@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+package Protocol;
+import "google/protobuf/timestamp.proto";
+option csharp_namespace = "Google.Protobuf.Protocol";
+
+enum MsgId {
+	S_LOGIN_SUCCESS = 0;
+	C_LOGIN = 1;
+	S_ROOM_LIST = 2;
+	C_ROOM_LIST = 3;
+	S_ENTER_ROOM = 4;
+	S_LEAVE_ROOM = 5;
+	S_LEAVE_GAME = 6;
+	C_CREATE_ROOM = 7;
+	C_ENTER_ROOM = 8;
+	C_LEAVE_ROOM = 9;
+	S_ENTER_BATTLEFIELD = 10;
+	C_MOVE = 11;
+	S_MOVE = 12;
+	S_STOP_MOVE = 13;
+	C_STOP_MOVE = 14;
+}
+
+enum CreatureState {
+	Idle = 0;
+	Moving = 1;
+	Skill = 2;
+	Dead = 3;
+}
+
+enum MoveDir {
+	Up = 0;
+	Down = 1;
+	Left = 2;
+	Right = 3;
+	LeftUp = 4;
+	RightUp = 5;
+	LeftDown = 6;
+	RightDown = 7;
+}
+
+enum GameObjectType {
+	NONE = 0;
+	PLAYER = 1;
+	MONSTER = 2;
+	PROJECTILE = 3;
+}
+
+message S_LoginSuccess {
+	PlayerInfo player = 1;
+}
+
+message C_Login {
+	string playerName = 1;
+}
+
+message S_RoomList {
+	repeated RoomInfo room = 1;
+}
+
+message C_RoomList {
+
+}
+
+message S_EnterRoom {
+	repeated PlayerInfo player = 1;
+}
+
+message S_LeaveRoom {
+	repeated PlayerInfo player = 1;
+}
+
+message S_LeaveGame {
+}
+
+message C_CreateRoom {
+	int32 playerID = 1;
+	string roomName = 2;
+}
+
+message C_EnterRoom {
+	int32 playerID = 1;
+}
+
+message S_EnterBattlefield {
+	int32 player1ID = 1;
+	int32 player2ID = 2;
+}
+
+message C_LeaveRoom {
+
+}
+
+message C_Move {
+	PositionInfo posInfo = 1;
+}
+
+message S_Move {
+	int32 playerID = 1;
+	float posX = 2;
+	float posY = 3;
+	float posZ = 4;
+	float dirX = 5;
+	float dirY = 6;
+	float dirZ = 7;
+}
+
+message S_StopMove {
+	int32 playerID = 1;
+	bool moving = 2;
+	float posX = 3;
+	float posY = 4;
+	float posZ = 5;
+}
+
+message C_StopMove {
+	int32 playerID = 1;
+	bool moving = 2;
+	float posX = 3;
+	float posY = 4;
+	float posZ = 5;
+}
+
+message PlayerInfo {
+	int32 playerId = 1;
+	string name = 2;
+	PositionInfo posInfo = 3;
+}
+
+message RoomInfo {
+	int32 Id = 1;
+	string name = 2;
+	int32 playerCount = 3;
+}
+
+message PositionInfo {
+	float posX = 1;
+	float posY = 2;
+	float posZ = 3;
+	float moveDirPosX = 4;
+	float moveDirPosY = 5;
+	float moveDirPosZ = 6;
+}
+
+message StatInfo {
+	int32 level = 1;
+	int32 hp = 2;
+	int32 maxHp = 3;
+	int32 attack = 4;
+	float speed = 5;
+	int32 totalExp = 6;
+}
+
+message S_BroadcastTest{
+
+}
