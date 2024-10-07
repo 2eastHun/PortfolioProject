@@ -1,0 +1,14 @@
+/Client/.vs/
+/Client/Library/
+/Client/Logs/
+/Client/obj/
+/Client/ProjectSettings/
+/Client/UserSettings/
+/GameWebServer/.vs/
+/GameWebServer/GameWebServer/bin/
+/GameWebServer/GameWebServer/obj/
+/Server/.vs/
+/Server/PacketGenerator/obj/
+/Server/Server/obj/
+/Server/ServerCore/obj/
+/Server/ServerCore/bin/
