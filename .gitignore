@@ -2,12 +2,14 @@
 /Client/Library/
 /Client/Logs/
 /Client/obj/
+/Client/Temp/
 /Client/ProjectSettings/
 /Client/UserSettings/
 /GameWebServer/.vs/
 /GameWebServer/GameWebServer/bin/
 /GameWebServer/GameWebServer/obj/
 /Server/.vs/
+/Server/Test/obj/
 /Server/PacketGenerator/obj/
 /Server/Server/obj/
 /Server/ServerCore/obj/
