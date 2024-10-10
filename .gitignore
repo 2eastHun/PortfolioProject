@@ -5,6 +5,7 @@
 /Client/Temp/
 /Client/ProjectSettings/
 /Client/UserSettings/
+/Client/Build/
 /GameWebServer/.vs/
 /GameWebServer/GameWebServer/bin/
 /GameWebServer/GameWebServer/obj/
@@ -12,5 +13,6 @@
 /Server/Test/obj/
 /Server/PacketGenerator/obj/
 /Server/Server/obj/
+/Server/Server/bin/
 /Server/ServerCore/obj/
 /Server/ServerCore/bin/
