@@ -123,7 +123,7 @@ namespace Server
             if (message == "OK")
             {
                 GameRoom room = RoomManager.Instance.Find(0);
-                room.Push(room.EnterRoom, MyPlayer);
+                room.Push(room.EnterRoom, MyPlayer, RoomType.Lobby);
 
                 Console.WriteLine($"User ID:{MyPlayer.Info.PlayerId} Name:{MyPlayer.Info.Name} 유저 접속");
 

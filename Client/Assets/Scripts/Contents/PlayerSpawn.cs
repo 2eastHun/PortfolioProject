@@ -20,7 +20,7 @@ public class PlayerSpawn : MonoBehaviour
         Transform player1Spawn = GameObject.Find("PlayerSpawner").transform.Find("Player1Spawner");
         Transform player2Spawn = GameObject.Find("PlayerSpawner").transform.Find("Player2Spawner");
 
-        if(player1ID == NetworkManager.instance.PlayerID)
+        if(player1ID == NetworkManager.instance.MyPlayerID)
         {
             GameObject myPlayer = Instantiate(myPlayerPrefab, player1Spawn.position, Quaternion.identity);
             myPlayer.transform.SetParent(player1Spawn);
@@ -30,7 +30,7 @@ public class PlayerSpawn : MonoBehaviour
             enemyPlayer.transform.SetParent(player2Spawn);
             enemyPlayer.AddComponent<EnemyPlayer>();
         }
-        else if (player2ID == NetworkManager.instance.PlayerID)
+        else if (player2ID == NetworkManager.instance.MyPlayerID)
         {
             GameObject myPlayer = Instantiate(myPlayerPrefab, player2Spawn.position, Quaternion.identity);
             myPlayer.transform.SetParent(player2Spawn);

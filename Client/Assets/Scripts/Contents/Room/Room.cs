@@ -1,0 +1,34 @@
+using Google.Protobuf.Protocol;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Room : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void GetPlayerName(string name)
+    {
+
+    }
+
+    public void ExitButton()
+    {
+        C_LeaveRoom leaveRoom = new C_LeaveRoom();
+
+        NetworkManager.instance.Send(leaveRoom);
+
+        SceneManager.LoadScene("Lobby");
+    }
+}

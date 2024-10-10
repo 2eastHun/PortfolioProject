@@ -17,9 +17,6 @@ namespace Server.Game.Room
         int _roomId = 0;
         string _roomName = "null";
 
-        
-
-
         /// <summary>방을 만드는 함수</summary>
         public GameRoom Add(string roomName)
         {

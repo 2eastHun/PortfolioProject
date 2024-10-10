@@ -10,16 +10,21 @@ enum MsgId {
 	S_ROOM_LIST = 2;
 	C_ROOM_LIST = 3;
 	S_ENTER_ROOM = 4;
-	S_LEAVE_ROOM = 5;
-	S_LEAVE_GAME = 6;
-	C_CREATE_ROOM = 7;
-	C_ENTER_ROOM = 8;
-	C_LEAVE_ROOM = 9;
-	S_ENTER_BATTLEFIELD = 10;
-	C_MOVE = 11;
-	S_MOVE = 12;
-	S_STOP_MOVE = 13;
-	C_STOP_MOVE = 14;
+	C_ENTER_ROOM = 5;
+	S_LEAVE_ROOM = 6;
+	C_LEAVE_ROOM = 7;
+	S_LEAVE_GAME = 8;
+	C_CREATE_ROOM = 9;
+	S_NEW_HOST = 10;
+	S_ENTER_BATTLEFIELD = 11;
+	C_MOVE = 12;
+	S_MOVE = 13;
+	S_STOP_MOVE = 14;
+	C_STOP_MOVE = 15;
+}
+enum RoomType {
+	Lobby = 0;
+	GameRoom = 1;
 }
 
 enum CreatureState {
@@ -65,10 +70,22 @@ message C_RoomList {
 
 message S_EnterRoom {
 	repeated PlayerInfo player = 1;
+	RoomType roomType = 2;
+
+}
+
+message C_EnterRoom {
+	int32 playerID = 1;
+	int32 roomID = 2;
+	RoomType roomType = 3;
 }
 
 message S_LeaveRoom {
 	repeated PlayerInfo player = 1;
+}
+
+message C_LeaveRoom {
+
 }
 
 message S_LeaveGame {
@@ -79,8 +96,8 @@ message C_CreateRoom {
 	string roomName = 2;
 }
 
-message C_EnterRoom {
-	int32 playerID = 1;
+message S_NewHost {
+
 }
 
 message S_EnterBattlefield {
@@ -88,9 +105,7 @@ message S_EnterBattlefield {
 	int32 player2ID = 2;
 }
 
-message C_LeaveRoom {
 
-}
 
 message C_Move {
 	PositionInfo posInfo = 1;
@@ -132,6 +147,8 @@ message RoomInfo {
 	int32 Id = 1;
 	string name = 2;
 	int32 playerCount = 3;
+	int32 hostID = 4;
+	bool isReady = 5;
 }
 
 message PositionInfo {

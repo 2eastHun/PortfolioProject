@@ -35,24 +35,25 @@ internal class PacketHandler
         Player player = clientSession.MyPlayer;
 
         GameRoom room = RoomManager.Instance.Find(0);
+        
         room.Push(room.LeaveRoom, player.Info.PlayerId);
 
         room = RoomManager.Instance.Add(createRoom.RoomName);
         RoomManager.Instance.Find(room.RoomId);
-        room.Push(room.EnterRoom, player);
+        room.Push(room.CreateRoom, player);
 
         Program.TickRoom(room, 50);
     }
 
     public static void C_EnterRoomHandler(PacketSession session, IMessage packet)
     {
-        C_EnterRoom findRoomPacket = packet as C_EnterRoom;
+        C_EnterRoom enterRoom = packet as C_EnterRoom;
         ClientSession clientSession = session as ClientSession;
 
         Player player = clientSession.MyPlayer;
 
-        GameRoom room = RoomManager.Instance.Find(1);
-        room.Push(room.EnterRoom, player);
+        GameRoom room = RoomManager.Instance.Find(enterRoom.RoomID);
+        room.Push(room.EnterRoom, player, RoomType.GameRoom);
     }
 
     public static void C_RoomListHandler(PacketSession session, IMessage packet)
@@ -72,7 +73,7 @@ internal class PacketHandler
         room.Push(room.LeaveRoom, player.Info.PlayerId);
 
         room = RoomManager.Instance.Find(0);
-        room.Push(room.EnterRoom, player);
+        room.Push(room.EnterRoom, player, RoomType.Lobby);
     }
 
     public static void C_MoveHandler(PacketSession session, IMessage packet)

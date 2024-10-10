@@ -47,7 +47,7 @@ public class ObjectManager : MonoBehaviour
         //Debug.Log(player1Spawn);
         //Transform player2Spawn = GameObject.Find("PlayerSpawner").transform.Find("Player2Spawner");
 
-        if (PlayerPrefs.GetInt("Player1ID") == NetworkManager.instance.PlayerID)
+        if (PlayerPrefs.GetInt("Player1ID") == NetworkManager.instance.MyPlayerID)
         {
             //GameObject myPlayer = Instantiate(myPlayerPrefab);
             //myPlayer.AddComponent<MyPlayerController>();

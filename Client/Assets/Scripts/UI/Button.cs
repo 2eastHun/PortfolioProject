@@ -13,7 +13,7 @@ public class Button : MonoBehaviour
     {
         C_CreateRoom createRoom = new C_CreateRoom();
 
-        createRoom.PlayerID = NetworkManager.instance.PlayerID;
+        createRoom.PlayerID = NetworkManager.instance.MyPlayerID;
 
         NetworkManager.instance.Send(createRoom);
 
@@ -24,7 +24,7 @@ public class Button : MonoBehaviour
     {
         C_EnterRoom findRoomPacket = new C_EnterRoom();
 
-        findRoomPacket.PlayerID = NetworkManager.instance.PlayerID;
+        findRoomPacket.PlayerID = NetworkManager.instance.MyPlayerID;
 
         NetworkManager.instance.Send(findRoomPacket);
     }
@@ -33,7 +33,7 @@ public class Button : MonoBehaviour
     {
         C_CreateRoom createRoom = new C_CreateRoom();
 
-        createRoom.PlayerID = NetworkManager.instance.PlayerID;
+        createRoom.PlayerID = NetworkManager.instance.MyPlayerID;
 
         NetworkManager.instance.Send(createRoom);
 

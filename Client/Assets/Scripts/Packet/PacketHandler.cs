@@ -20,8 +20,9 @@ class PacketHandler
 
         Debug.Log("로그인 성공");
 
-        NetworkManager.instance.PlayerID = login.Player.PlayerId;
-        NetworkManager.instance.PlayerName = login.Player.Name;
+        NetworkManager.instance.MyPlayerID = login.Player.PlayerId;
+        NetworkManager.instance.MyPlayerName = login.Player.Name;
+
 
         SceneManager.LoadScene("Lobby");
     }
@@ -30,6 +31,8 @@ class PacketHandler
     {
         S_RoomList roomList = packet as S_RoomList;
 
+        if (roomList == null)
+            return;
 
         GameObject gameObject = GameObject.Find("Canvas").transform.Find("RoomList").gameObject;
 
@@ -46,16 +49,14 @@ class PacketHandler
     public static void S_EnterRoomHandler(PacketSession session, IMessage packet)
     {
         S_EnterRoom enterLobby_PK = packet as S_EnterRoom;
+        
+        if(enterLobby_PK.RoomType == RoomType.GameRoom)
+            SceneManager.LoadScene("Room");
 
-        //foreach (var player in enterLobby_PK.Player)
-        //{
-        //    Debug.Log($"{player.PlayerId} {player.Name}");
-        //}
-
-        //NetworkManager.instance.PlayerID = enterGame_PK.Player.;
-
-        //Debug.Log($"Player ID :{NetworkManager.instance.PlayerID}");
-        //Debug.Log($"Player ID :{enterGamePacket.Player.Name}");
+        foreach(var player in enterLobby_PK.Player)
+        {
+            Debug.Log($"ID: {player.PlayerId} Name: {player.Name}");
+        }
     }
 
     public static void S_LeaveRoomHandler(PacketSession session, IMessage packet)
@@ -76,6 +77,12 @@ class PacketHandler
     public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
     {
         S_LeaveGame leaveGame_PK = packet as S_LeaveGame;
+
+    }
+
+    public static void S_NewHost(PacketSession session, IMessage packet)
+    {
+        S_NewHost newHost = packet as S_NewHost;
 
     }
 

@@ -12,6 +12,12 @@ public class NetworkManager : MonoBehaviour
 {
 	public static NetworkManager instance = null;
 
+    public int MyPlayerID { get; set; }
+    public string MyPlayerName { get; set; }
+
+	public int EnemyPlayerID { get; set; }
+	public string EnemyPlayerName { get; set; }
+
     private void Awake()
     {
 		if (instance == null)
@@ -25,8 +31,7 @@ public class NetworkManager : MonoBehaviour
     ServerSession _session = new ServerSession();
 
 	
-	public int PlayerID { get; set; }
-	public string PlayerName { get; set; }
+	
 
     public void Send(IMessage packet)
 	{
