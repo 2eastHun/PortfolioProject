@@ -15,7 +15,7 @@ namespace Server
         static Listener _listener = new Listener();
         static List<System.Timers.Timer> _timers = new List<System.Timers.Timer>();
 
-        static public void TickRoom(GameRoom room, int tick = 100)
+        static public void TickRoom(Rooms room, int tick = 100)
         {
             var timer = new System.Timers.Timer();
             //몇 틱마다 실행 할지 설정
@@ -31,7 +31,7 @@ namespace Server
 
         static void Main(string[] args)
         {
-            GameRoom room = RoomManager.Instance.Add("Lobby");
+            Lobby room = RoomManager.Instance.Add<Lobby>("Lobby");
             TickRoom(room, 50);
 
             string host = Dns.GetHostName(); //로컬 컴퓨터의 host 이름

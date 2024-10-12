@@ -40,7 +40,7 @@ namespace Server.Game.Object
 
 
         /// <summary>입장한 방 정보</summary>
-        public GameRoom Room { get; set; }
+        public Rooms Room { get; set; }
 
         /// <summary>플레이어 정보</summary>
         public PlayerInfo Info { get; set; } = new PlayerInfo();

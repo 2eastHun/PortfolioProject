@@ -18,9 +18,16 @@ public class Room : MonoBehaviour
         
     }
 
-    public void GetPlayerName(string name)
+    public void SetMyPlayerNameText(string name)
     {
+        GameObject myPlayerName = GameObject.Find("Canvas").transform.Find("MyPlayerName").gameObject;
+        myPlayerName.GetComponent<TMPro.TextMeshProUGUI>().text = name;
+    }
 
+    public void SetEnemyNameText(string name)
+    {
+        GameObject enemyPlayerName = GameObject.Find("Canvas").transform.Find("MyPlayerName").gameObject;
+        enemyPlayerName.GetComponent<TMPro.TextMeshProUGUI>().text = name;
     }
 
     public void ExitButton()

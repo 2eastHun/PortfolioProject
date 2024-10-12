@@ -49,14 +49,54 @@ class PacketHandler
     public static void S_EnterRoomHandler(PacketSession session, IMessage packet)
     {
         S_EnterRoom enterLobby_PK = packet as S_EnterRoom;
-        
-        if(enterLobby_PK.RoomType == RoomType.GameRoom)
+
+        if (enterLobby_PK.RoomType == RoomType.GameRoom)
+        {
             SceneManager.LoadScene("Room");
 
-        foreach(var player in enterLobby_PK.Player)
-        {
-            Debug.Log($"ID: {player.PlayerId} Name: {player.Name}");
+            GameObject roomObject = GameObject.FindObjectOfType<Room>().gameObject;
+            if (roomObject != null)
+            {
+                Debug.Log("asd");
+                Room room = roomObject.GetComponent<Room>();
+                if (room != null)
+                {
+                    Debug.Log("asd");
+                    for (int i = 0; i < enterLobby_PK.Player.Count; i++)
+                    {
+                        Debug.Log(enterLobby_PK.Player[0].PlayerId);
+                        if (NetworkManager.instance.MyPlayerID == enterLobby_PK.Player[0].PlayerId)
+                        {
+                            room.SetMyPlayerNameText(enterLobby_PK.Player[0].Name);
+                            room.SetEnemyNameText(enterLobby_PK.Player[1].Name);
+                            
+                        }
+                        else
+                        {
+                            
+                            room.SetMyPlayerNameText(enterLobby_PK.Player[1].Name);
+                            room.SetEnemyNameText(enterLobby_PK.Player[0].Name);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Room 컴포넌트를 찾을 수 없습니다.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Room 객체를 찾을 수 없습니다.");
+            }
         }
+
+
+        //foreach(var player in enterLobby_PK.Player)
+        //{
+        //    Debug.Log($"ID: {player.PlayerId} Name: {player.Name}");
+        //}
+
+        
     }
 
     public static void S_LeaveRoomHandler(PacketSession session, IMessage packet)
