@@ -6,6 +6,7 @@
 /Client/ProjectSettings/
 /Client/UserSettings/
 /Client/Build/
+/Client/.csproj/
 /GameWebServer/.vs/
 /GameWebServer/GameWebServer/bin/
 /GameWebServer/GameWebServer/obj/
