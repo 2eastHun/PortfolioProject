@@ -27,7 +27,7 @@ namespace Server.Game.Room
         public bool IsReady { get { return Info.IsReady; } set { Info.IsReady = value; } }
 
         public RoomInfo Info { get; set; } = new RoomInfo();
-        Dictionary<int, Player> _players = new Dictionary<int, Player>();
+
         TimeManager timeManager = new TimeManager();
 
 
@@ -44,6 +44,28 @@ namespace Server.Game.Room
 
         public abstract void EnterRoom(Player player);
         public abstract void LeaveRoom(int playerId);
+
+        public abstract void Broadcast(IMessage packet);    
+
+        public void SendRoomList()
+        {
+            if (this.RoomId != 0)
+                return;
+
+            List<RoomInfo> roomList = new List<RoomInfo>();
+
+            foreach (Rooms room in RoomManager.Instance.RoomList())
+            {
+                roomList.Add(room.Info);
+
+                Console.WriteLine($"Send RoomList: ID: {room.RoomId} Name: {room.RoomName} Count: {room.PlayerCount}");
+            }
+
+            S_RoomList roomList_PK = new S_RoomList();
+            roomList_PK.Room.AddRange(roomList);
+
+            Broadcast(roomList_PK);
+        }
 
         //public void EnterLobby(Player player)
         //{
@@ -254,12 +276,6 @@ namespace Server.Game.Room
         //    Broadcast(roomList_PK);
         //}
 
-        public void Broadcast(IMessage packet)
-        {
-            foreach (Player p in _players.Values)
-            {
-                p.Session.Send(packet);
-            }
-        }
+
     }
 }

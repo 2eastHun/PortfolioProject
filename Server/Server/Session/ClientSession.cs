@@ -122,8 +122,8 @@ namespace Server
 
             if (message == "OK")
             {
-                Lobby room = RoomManager.Instance.Find<Lobby>(0);
-                room.Push(room.EnterLobby, MyPlayer);
+                Rooms lobby = RoomManager.Instance.Find<Lobby>(0);
+                lobby.Push(lobby.EnterRoom, MyPlayer);
 
                 Console.WriteLine($"User ID:{MyPlayer.Info.PlayerId} Name:{MyPlayer.Info.Name} 유저 접속");
 

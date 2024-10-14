@@ -27,54 +27,57 @@ internal class PacketHandler
         clientSession.OnLogin(loginPacket.PlayerName);
     }
 
-    public static void C_CreateRoomHandler(PacketSession session, IMessage packet)
-    {
-        //C_CreateRoom createRoom = packet as C_CreateRoom;
-        //ClientSession clientSession = session as ClientSession;
-
-        //Player player = clientSession.MyPlayer;
-
-        //Lobby room = RoomManager.Instance.Find(0);
-        
-        //room.Push(room.LeaveLobby, player.Info.PlayerId);
-
-        //room = RoomManager.Instance.Add(createRoom.RoomName);
-        //RoomManager.Instance.Find(room.RoomId);
-        //room.Push(room.CreateRoom, player);
-
-        //Program.TickRoom(room, 50);
-    }
-
     public static void C_EnterRoomHandler(PacketSession session, IMessage packet)
     {
-        //C_EnterRoom enterRoom = packet as C_EnterRoom;
-        //ClientSession clientSession = session as ClientSession;
+        C_EnterRoom enterRoom = packet as C_EnterRoom;
+        ClientSession clientSession = session as ClientSession;
 
-        //Player player = clientSession.MyPlayer;
+        Player player = clientSession.MyPlayer;
 
-        //GameRoom room = RoomManager.Instance.Find<GameRoom>(enterRoom.RoomID);
-        //room.Push(room.EnterLobby, player, RoomType.GameRoom);
-    }
-
-    public static void C_RoomListHandler(PacketSession session, IMessage packet)
-    {
-        //Room room = RoomManager.Instance.Find<Room>(0);
-        //room.Push(room.SendRoomList);
+        Rooms room = RoomManager.Instance.Find<GameRoom>(enterRoom.RoomID);
+        room.Push(room.EnterRoom, player);
     }
 
     public static void C_LeaveRoomHandler(PacketSession session, IMessage packet)
     {
-        //C_LeaveRoom leaveRoom = packet as C_LeaveRoom;
-        //ClientSession clientSession = session as ClientSession;
+        C_LeaveRoom leaveRoom = packet as C_LeaveRoom;
+        ClientSession clientSession = session as ClientSession;
 
-        //Player player = clientSession.MyPlayer;
+        Player player = clientSession.MyPlayer;
 
-        //Room room = RoomManager.Instance.Find<Room>(player.Room.RoomId);
-        //room.Push(room.LeaveLobby, player.Info.PlayerId);
+        Rooms room = RoomManager.Instance.Find<GameRoom>(player.Room.RoomId);
+        room.Push(room.LeaveRoom, player.Info.PlayerId);
 
-        //room = RoomManager.Instance.Find<Room>(0);
-        //room.Push(room.EnterLobby, player, RoomType.Lobby);
+        room = RoomManager.Instance.Find<Lobby>(0);
+        room.Push(room.EnterRoom, player);
     }
+
+    public static void C_CreateRoomHandler(PacketSession session, IMessage packet)
+    {
+        C_CreateRoom createRoom = packet as C_CreateRoom;
+        ClientSession clientSession = session as ClientSession;
+
+        Player player = clientSession.MyPlayer;
+
+        Rooms lobby = RoomManager.Instance.Find<Lobby>(0);
+        lobby.Push(lobby.LeaveRoom, player.Info.PlayerId);
+
+        GameRoom gameRoom = RoomManager.Instance.Add<GameRoom>(createRoom.RoomName);
+        RoomManager.Instance.Find<GameRoom>(gameRoom.RoomId);
+        gameRoom.Push(gameRoom.CreateGameRoom, player);
+
+        Program.TickRoom(gameRoom, 50);
+    }
+
+   
+
+    public static void C_RoomListHandler(PacketSession session, IMessage packet)
+    {
+        Lobby room = RoomManager.Instance.Find<Lobby>(0);
+        room.Push(room.SendRoomList);
+    }
+
+    
 
     public static void C_MoveHandler(PacketSession session, IMessage packet)
     {

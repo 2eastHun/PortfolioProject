@@ -9,18 +9,19 @@ enum MsgId {
 	C_LOGIN = 1;
 	S_ROOM_LIST = 2;
 	C_ROOM_LIST = 3;
-	S_ENTER_ROOM = 4;
-	C_ENTER_ROOM = 5;
-	S_LEAVE_ROOM = 6;
-	C_LEAVE_ROOM = 7;
-	S_LEAVE_GAME = 8;
-	C_CREATE_ROOM = 9;
-	S_NEW_HOST = 10;
-	S_ENTER_BATTLEFIELD = 11;
-	C_MOVE = 12;
-	S_MOVE = 13;
-	S_STOP_MOVE = 14;
-	C_STOP_MOVE = 15;
+	S_ENTER_LOBBY = 4;
+	S_ENTER_ROOM = 5;
+	C_ENTER_ROOM = 6;
+	S_LEAVE_ROOM = 7;
+	C_LEAVE_ROOM = 8;
+	S_LEAVE_GAME = 9;
+	C_CREATE_ROOM = 10;
+	S_NEW_HOST = 11;
+	S_ENTER_BATTLEFIELD = 12;
+	C_MOVE = 13;
+	S_MOVE = 14;
+	S_STOP_MOVE = 15;
+	C_STOP_MOVE = 16;
 }
 enum RoomType {
 	Lobby = 0;
@@ -66,6 +67,10 @@ message S_RoomList {
 
 message C_RoomList {
 
+}
+
+message S_EnterLobby {
+	repeated PlayerInfo player = 1;
 }
 
 message S_EnterRoom {
