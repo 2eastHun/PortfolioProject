@@ -46,7 +46,7 @@ internal class PacketHandler
         Player player = clientSession.MyPlayer;
 
         Rooms room = RoomManager.Instance.Find<GameRoom>(player.Room.RoomId);
-        room.Push(room.LeaveRoom, player.Info.PlayerId);
+        room.Push(room.LeaveRoom, player);
 
         room = RoomManager.Instance.Find<Lobby>(0);
         room.Push(room.EnterRoom, player);
@@ -60,7 +60,7 @@ internal class PacketHandler
         Player player = clientSession.MyPlayer;
 
         Rooms lobby = RoomManager.Instance.Find<Lobby>(0);
-        lobby.Push(lobby.LeaveRoom, player.Info.PlayerId);
+        lobby.Push(lobby.LeaveRoom, player);
 
         GameRoom gameRoom = RoomManager.Instance.Add<GameRoom>(createRoom.RoomName);
         RoomManager.Instance.Find<GameRoom>(gameRoom.RoomId);

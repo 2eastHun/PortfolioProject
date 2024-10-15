@@ -33,8 +33,6 @@ public class Lobby : MonoBehaviour
         createRoom.RoomName = _roomName.text;
 
         NetworkManager.instance.Send(createRoom);
-
-        SceneManager.LoadScene("Room");
     }
 
     public void SetActiveButton()

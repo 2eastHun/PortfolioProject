@@ -35,7 +35,5 @@ public class Room : MonoBehaviour
         C_LeaveRoom leaveRoom = new C_LeaveRoom();
 
         NetworkManager.instance.Send(leaveRoom);
-
-        SceneManager.LoadScene("Lobby");
     }
 }

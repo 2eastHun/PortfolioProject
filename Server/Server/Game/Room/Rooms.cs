@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Server.Game;
 using Server.Game.Object;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace Server.Game.Room
         }
 
         public abstract void EnterRoom(Player player);
-        public abstract void LeaveRoom(int playerId);
+        public abstract void LeaveRoom(Player player);
 
         public abstract void Broadcast(IMessage packet);    
 

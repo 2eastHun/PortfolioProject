@@ -55,7 +55,7 @@ class PacketHandler
 
     public static void S_EnterRoomHandler(PacketSession session, IMessage packet)
     {
-        S_EnterRoom enterLobby_PK = packet as S_EnterRoom;
+        S_EnterRoom enterRoom_PK = packet as S_EnterRoom;
 
        // if (enterLobby_PK.RoomType == RoomType.GameRoom)
         {
@@ -109,6 +109,8 @@ class PacketHandler
     public static void S_LeaveRoomHandler(PacketSession session, IMessage packet)
     {
         S_LeaveRoom enterLobby_PK = packet as S_LeaveRoom;
+
+        SceneManager.LoadScene("Lobby");
 
         //foreach (var player in enterLobby_PK.Player)
         //{

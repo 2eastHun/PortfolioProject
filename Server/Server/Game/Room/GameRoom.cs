@@ -34,11 +34,11 @@ namespace Server.Game.Room
 
             S_EnterRoom EnterRoom = new S_EnterRoom();
 
-            foreach (Player p in _players)
-            {
-                //if (player != p)
-                EnterRoom.Player.Add(p.Info);
-            }
+            //foreach (Player p in _players)
+            //{
+            //    //if (player != p)
+            //    EnterRoom.Player.Add(p.Info);
+            //}
 
             player.Session.Send(EnterRoom);
 
@@ -70,14 +70,14 @@ namespace Server.Game.Room
             Console.WriteLine($"{player.Name} 플레이어 {this.RoomName}방 생성");
         }
 
-        public override void LeaveRoom(int playerId)
+        public override void LeaveRoom(Player player)
         {
             //if (_players.Remove(playerId) == false)
             //    return;
 
             for(int i = 0; i<_players.Length; i++)
             {
-                if (_players[i].Id == playerId)
+                if (_players[i].Id == player.Info.PlayerId)
                 {
                     _players[i] = null;
                     break;
@@ -86,80 +86,52 @@ namespace Server.Game.Room
 
             this.PlayerCount--;
 
+            S_LeaveRoom leaveRoom = new S_LeaveRoom();
+            player.Session.Send(leaveRoom);
 
-            if (this.RoomId != 0)
+            if (this.HostID == player.Info.PlayerId)
             {
-                if (this.HostID == playerId)
+                if (!_players.All(p => p == null))
                 {
-                    if (!_players.All(p => p == null))
+                    foreach (Player p in _players)
                     {
-                        foreach (Player p in _players)
+                        if (p != null)
                         {
-                            if (p != null)
-                            {
-                                this.HostID = p.Id;
-                                break;
-                            }
+                            this.HostID = p.Id;
+                            break;
                         }
-
-                        S_LeaveRoom leaveRoom = new S_LeaveRoom();
-
-                        foreach (Player p in _players)
-                        {
-                            //if (player != p)
-                            leaveRoom.Player.Remove(p.Info);
-                        }
-
-                        Broadcast(leaveRoom);
                     }
-                    else
-                    {
-                        RoomManager.Instance.Remove(this.RoomId);
-                        Console.WriteLine("방에 유저가 없어서 방 삭제");
-                    }
+
+                    
+                    //foreach (Player p in _players)
+                    //{
+                    //    //if (player != p)
+                    //    leaveRoom.Player.Add(p.Info);
+                    //}
+
+                    //Broadcast(leaveRoom);
+                }
+                else
+                {
+                   // S_LeaveRoom leaveRoom = new S_LeaveRoom();
+
+                    RoomManager.Instance.Remove(this.RoomId);
+                    Console.WriteLine("방에 유저가 없어서 방 삭제");
                 }
             }
 
             Rooms room = RoomManager.Instance.Find<Lobby>(0);
             room.SendRoomList();
 
-            Console.WriteLine($"{playerId} 번 플레이어 {this.RoomId}번 방에서 나감");
+            Console.WriteLine($"{player.Info.PlayerId} 번 플레이어 {this.RoomId}번 방에서 나감");
         }
+
         public override void Broadcast(IMessage packet)
         {
             foreach (Player p in _players)
             {
                 p.Session.Send(packet);
             }
-        }
-
-
-
-        //public void EnterLobby(Player player)
-        //{
-        //    player.Room = this;
-        //    player.Room.PlayerCount++;
-
-        //    _players.Add(player.Id, player);
-
-        //    S_EnterRoom EnterLobby_PK = new S_EnterRoom();
-
-        //    foreach (Player p in _players.Values)
-        //    {
-        //        //if (player != p)
-        //        EnterLobby_PK.Player.Add(p.Info);
-        //    }
-
-        //    Broadcast(EnterLobby_PK);
-        //    SendRoomList();
-
-        //    Console.WriteLine($"{player.Id} 번 플레이어 로비 입장");
-        //}
-
-        public void LeaveLobby(int playerId)
-        {
-            //GameObjectType type = ObjectManager.GetObjectTypeById(objectId);
-            
         }
     }
 }

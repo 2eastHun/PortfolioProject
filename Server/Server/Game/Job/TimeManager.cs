@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Game.Room
+namespace Server.Game
 {
     public class TimeManager
     {
