@@ -75,8 +75,6 @@ message S_EnterLobby {
 
 message S_EnterRoom {
 	repeated PlayerInfo player = 1;
-	RoomType roomType = 2;
-
 }
 
 message C_EnterRoom {

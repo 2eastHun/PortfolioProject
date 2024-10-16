@@ -14,8 +14,8 @@ public class RoomList : MonoBehaviour
 
     void Start()
     {
-        C_RoomList roomList = new C_RoomList();
-        NetworkManager.instance.Send(roomList);
+        //C_RoomList roomList = new C_RoomList();
+        //NetworkManager.instance.Send(roomList);
     }
 
     // Update is called once per frame
@@ -26,7 +26,10 @@ public class RoomList : MonoBehaviour
 
     public void UpdateRoomList()
     {
-
+        foreach (Transform child in content)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     public void UpdateRoomList(List<RoomInfo> roomList)

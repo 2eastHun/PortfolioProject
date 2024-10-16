@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 class PacketHandler
@@ -30,26 +31,23 @@ class PacketHandler
     public static void S_RoomListHandler(PacketSession session, IMessage packet)
     {
         S_RoomList roomList = packet as S_RoomList;
+        GameObject gameObject = GameObject.Find("Canvas")?.transform.Find("RoomList")?.gameObject;
 
-        if (roomList == null)
+        if (roomList.Room == null || gameObject == null)
             return;
-
-        GameObject gameObject = GameObject.Find("Canvas").transform.Find("RoomList").gameObject;
-
+        
         RoomList list = gameObject.GetComponent<RoomList>();
         list.UpdateRoomList(roomList.Room.ToList());
 
         foreach (var room in roomList.Room)
         {
             Debug.Log($"{room.Id} {room.Name} {room.PlayerCount}");
-
         }
     }
 
     public static void S_EnterLobbyHandler(PacketSession session, IMessage packet)
     {
         S_EnterLobby enterLobby = packet as S_EnterLobby;
-
 
     }
 
@@ -59,7 +57,37 @@ class PacketHandler
 
        // if (enterLobby_PK.RoomType == RoomType.GameRoom)
         {
+            SceneManager.sceneLoaded += OnRoomSceneLoaded;
+
             SceneManager.LoadScene("Room");
+
+            // Room 씬이 로드된 후 호출될 메서드
+            void OnRoomSceneLoaded(Scene scene, LoadSceneMode mode)
+            {
+                if (scene.name == "Room")
+                {
+                    // Room 씬이 로드되었으므로 이벤트 핸들러 제거
+                    SceneManager.sceneLoaded -= OnRoomSceneLoaded;
+
+                    // Room 객체를 찾아 SetMyPlayerNameText 메서드 호출
+                    Room room = GameObject.FindObjectOfType<Room>();
+                    if (room != null)
+                    {
+                        for(int i = 0; i< enterRoom_PK.Player.Count; i++)
+                        {
+                            Debug.Log($"{enterRoom_PK.Player[i].Name}");
+                            if (NetworkManager.instance.MyPlayerID == enterRoom_PK.Player[i].PlayerId)
+                                room.SetMyPlayerNameText(enterRoom_PK.Player[i].Name);
+                            else
+                                room.SetEnemyNameText(enterRoom_PK.Player[i].Name);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Room 객체를 찾을 수 없습니다.");
+                    }
+                }
+            }
 
             //GameObject roomObject = GameObject.FindObjectOfType<Room>().gameObject;
             //if (roomObject != null)
@@ -76,11 +104,11 @@ class PacketHandler
             //            {
             //                room.SetMyPlayerNameText(enterLobby_PK.Player[0].Name);
             //                room.SetEnemyNameText(enterLobby_PK.Player[1].Name);
-                            
+
             //            }
             //            else
             //            {
-                            
+
             //                room.SetMyPlayerNameText(enterLobby_PK.Player[1].Name);
             //                room.SetEnemyNameText(enterLobby_PK.Player[0].Name);
             //            }

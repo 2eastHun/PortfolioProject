@@ -50,10 +50,10 @@ namespace Server.Game.Room
 
         public void SendRoomList()
         {
+            List<RoomInfo> roomList = new List<RoomInfo>();
+
             if (this.RoomId != 0)
                 return;
-
-            List<RoomInfo> roomList = new List<RoomInfo>();
 
             foreach (Rooms room in RoomManager.Instance.RoomList())
             {

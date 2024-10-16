@@ -34,18 +34,24 @@ namespace Server.Game.Room
 
             S_EnterRoom EnterRoom = new S_EnterRoom();
 
-            //foreach (Player p in _players)
-            //{
-            //    //if (player != p)
-            //    EnterRoom.Player.Add(p.Info);
-            //}
-
+            foreach (Player p in _players)
+            {
+                if (p != null)
+                    EnterRoom.Player.Add(p.Info);
+            }
+            
             player.Session.Send(EnterRoom);
 
             Lobby room = RoomManager.Instance.Find<Lobby>(0);
             room.SendRoomList();
 
             Console.WriteLine($"{player.Name} 플레이어 {this.RoomName}방 입장");
+
+            Console.WriteLine($"현재 입장한 플레이어{_players.Length}명");
+            for (int i = 0; i<_players.Length; i++)
+            {
+                Console.WriteLine($"{_players[i].Name}");
+            }
         }
 
         public void CreateGameRoom(Player player)
@@ -55,12 +61,12 @@ namespace Server.Game.Room
             player.Room.Info.PlayerCount += 1;
             player.Room.HostID = player.Id;
             player.Room.IsReady = false;
-
             _players[0] = player;
-
-            //Lobby room = RoomManager.Instance.Find<Lobby>(0);
-
             S_EnterRoom EnterRoom = new S_EnterRoom();
+
+            
+            EnterRoom.Player.Add(player.Info);
+            
 
             player.Session.Send(EnterRoom);
 

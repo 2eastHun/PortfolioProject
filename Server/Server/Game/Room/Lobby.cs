@@ -31,6 +31,7 @@ namespace Server.Game.Room
             //Broadcast(EnterLobby_PK);
 
             Lobby room = RoomManager.Instance.Find<Lobby>(0);
+            
             room.SendRoomList();
 
             Console.WriteLine($"{player.Id} 번 플레이어 로비 입장");
