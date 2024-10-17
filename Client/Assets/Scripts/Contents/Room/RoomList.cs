@@ -14,8 +14,8 @@ public class RoomList : MonoBehaviour
 
     void Start()
     {
-        //C_RoomList roomList = new C_RoomList();
-        //NetworkManager.instance.Send(roomList);
+        C_RoomList roomList = new C_RoomList();
+        NetworkManager.instance.Send(roomList);
     }
 
     // Update is called once per frame

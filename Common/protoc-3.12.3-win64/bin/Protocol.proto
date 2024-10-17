@@ -84,7 +84,7 @@ message C_EnterRoom {
 }
 
 message S_LeaveRoom {
-	repeated PlayerInfo player = 1;
+	PlayerInfo player = 1;
 }
 
 message C_LeaveRoom {

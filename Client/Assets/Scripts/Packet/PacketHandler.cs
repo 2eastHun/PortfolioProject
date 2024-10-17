@@ -57,9 +57,30 @@ class PacketHandler
 
        // if (enterLobby_PK.RoomType == RoomType.GameRoom)
         {
-            SceneManager.sceneLoaded += OnRoomSceneLoaded;
-
-            SceneManager.LoadScene("Room");
+            if (SceneManager.GetActiveScene().name != "Room")
+            {
+                SceneManager.sceneLoaded += OnRoomSceneLoaded;
+                SceneManager.LoadScene("Room");
+            }
+            else
+            {
+                Room room = GameObject.FindObjectOfType<Room>();
+                if (room != null)
+                {
+                    for (int i = 0; i < enterRoom_PK.Player.Count; i++)
+                    {
+                        Debug.Log($"{enterRoom_PK.Player[i].Name}");
+                        if (NetworkManager.instance.MyPlayerID == enterRoom_PK.Player[i].PlayerId)
+                            room.SetMyPlayerNameText(enterRoom_PK.Player[i].Name);
+                        else
+                            room.SetEnemyNameText(enterRoom_PK.Player[i].Name);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Room 객체를 찾을 수 없습니다.");
+                }
+            }
 
             // Room 씬이 로드된 후 호출될 메서드
             void OnRoomSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -138,7 +159,13 @@ class PacketHandler
     {
         S_LeaveRoom enterLobby_PK = packet as S_LeaveRoom;
 
-        SceneManager.LoadScene("Lobby");
+        if(enterLobby_PK.Player.PlayerId == NetworkManager.instance.MyPlayerID)
+            SceneManager.LoadScene("Lobby");
+        else
+        {
+            Room room = GameObject.FindObjectOfType<Room>();
+            room.SetEnemyNameText(null);
+        }
 
         //foreach (var player in enterLobby_PK.Player)
         //{

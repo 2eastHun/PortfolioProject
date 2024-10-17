@@ -18,7 +18,7 @@ namespace Server.Game.Room
             player.Room = this;
             player.Room.PlayerCount++;
 
-            _players.Add(player.Id, player);
+            _players.Add(player.Info.PlayerId, player);
 
             //S_EnterLobby EnterLobby_PK = new S_EnterLobby();
 
@@ -34,7 +34,7 @@ namespace Server.Game.Room
             
             room.SendRoomList();
 
-            Console.WriteLine($"{player.Id} 번 플레이어 로비 입장");
+            Console.WriteLine($"{player.Info.PlayerId} 번 플레이어 로비 입장");
         }
 
         public override void LeaveRoom(Player player)

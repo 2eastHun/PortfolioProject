@@ -33,7 +33,7 @@ namespace Google.Protobuf.Protocol {
             "dGVyUm9vbRIkCgZwbGF5ZXIYASADKAsyFC5Qcm90b2NvbC5QbGF5ZXJJbmZv",
             "IlUKC0NfRW50ZXJSb29tEhAKCHBsYXllcklEGAEgASgFEg4KBnJvb21JRBgC",
             "IAEoBRIkCghyb29tVHlwZRgDIAEoDjISLlByb3RvY29sLlJvb21UeXBlIjMK",
-            "C1NfTGVhdmVSb29tEiQKBnBsYXllchgBIAMoCzIULlByb3RvY29sLlBsYXll",
+            "C1NfTGVhdmVSb29tEiQKBnBsYXllchgBIAEoCzIULlByb3RvY29sLlBsYXll",
             "ckluZm8iDQoLQ19MZWF2ZVJvb20iDQoLU19MZWF2ZUdhbWUiMgoMQ19DcmVh",
             "dGVSb29tEhAKCHBsYXllcklEGAEgASgFEhAKCHJvb21OYW1lGAIgASgJIgsK",
             "CVNfTmV3SG9zdCI6ChJTX0VudGVyQmF0dGxlZmllbGQSEQoJcGxheWVyMUlE",
@@ -1091,7 +1091,7 @@ namespace Google.Protobuf.Protocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public S_LeaveRoom(S_LeaveRoom other) : this() {
-      player_ = other.player_.Clone();
+      player_ = other.player_ != null ? other.player_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1102,12 +1102,13 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "player" field.</summary>
     public const int PlayerFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Google.Protobuf.Protocol.PlayerInfo> _repeated_player_codec
-        = pb::FieldCodec.ForMessage(10, global::Google.Protobuf.Protocol.PlayerInfo.Parser);
-    private readonly pbc::RepeatedField<global::Google.Protobuf.Protocol.PlayerInfo> player_ = new pbc::RepeatedField<global::Google.Protobuf.Protocol.PlayerInfo>();
+    private global::Google.Protobuf.Protocol.PlayerInfo player_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Google.Protobuf.Protocol.PlayerInfo> Player {
+    public global::Google.Protobuf.Protocol.PlayerInfo Player {
       get { return player_; }
+      set {
+        player_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1123,14 +1124,14 @@ namespace Google.Protobuf.Protocol {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!player_.Equals(other.player_)) return false;
+      if (!object.Equals(Player, other.Player)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= player_.GetHashCode();
+      if (player_ != null) hash ^= Player.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1144,7 +1145,10 @@ namespace Google.Protobuf.Protocol {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      player_.WriteTo(output, _repeated_player_codec);
+      if (player_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Player);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1153,7 +1157,9 @@ namespace Google.Protobuf.Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      size += player_.CalculateSize(_repeated_player_codec);
+      if (player_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Player);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1165,7 +1171,12 @@ namespace Google.Protobuf.Protocol {
       if (other == null) {
         return;
       }
-      player_.Add(other.player_);
+      if (other.player_ != null) {
+        if (player_ == null) {
+          Player = new global::Google.Protobuf.Protocol.PlayerInfo();
+        }
+        Player.MergeFrom(other.Player);
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1178,7 +1189,10 @@ namespace Google.Protobuf.Protocol {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            player_.AddEntriesFrom(input, _repeated_player_codec);
+            if (player_ == null) {
+              Player = new global::Google.Protobuf.Protocol.PlayerInfo();
+            }
+            input.ReadMessage(Player);
             break;
           }
         }

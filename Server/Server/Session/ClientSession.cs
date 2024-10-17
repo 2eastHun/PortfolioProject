@@ -77,7 +77,7 @@ namespace Server
             room.Push(room.LeaveRoom, MyPlayer);
             SessionManager.Instance.Remove(this);
 
-            await OnLogout(this.MyPlayer.Id);
+            await OnLogout(this.MyPlayer.Info.PlayerId);
 
             Console.WriteLine($"{MyPlayer.Info.PlayerId}:Player {MyPlayer.Room.RoomId}:Room OnDisconnected: {endPoint}");
         }

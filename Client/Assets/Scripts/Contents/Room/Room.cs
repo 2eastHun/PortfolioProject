@@ -26,7 +26,7 @@ public class Room : MonoBehaviour
 
     public void SetEnemyNameText(string name)
     {
-        GameObject enemyPlayerName = GameObject.Find("Canvas").transform.Find("MyPlayerName").gameObject;
+        GameObject enemyPlayerName = GameObject.Find("Canvas").transform.Find("EnemyPlayerName").gameObject;
         enemyPlayerName.GetComponent<TMPro.TextMeshProUGUI>().text = name;
     }
 

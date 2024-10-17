@@ -18,17 +18,17 @@ namespace Server.Game.Object
     public class Player
     {
         public GameObjectType ObjectType { get; protected set; } = GameObjectType.None;
-        public int Id
-        {
-            get { return Info.PlayerId; }
-            set { Info.PlayerId = value; }
-        }
+        //public int Id
+        //{
+        //    get { return Info.PlayerId; }
+        //    set { Info.PlayerId = value; }
+        //}
 
-        public string Name
-        {
-            get { return Info.Name; }
-            set { Info.Name = value; }
-        }
+        //public string Name
+        //{
+        //    get { return Info.Name; }
+        //    set { Info.Name = value; }
+        //}
 
         public ClientSession Session { get; set; }
 
