@@ -69,7 +69,6 @@ class PacketHandler
                 {
                     for (int i = 0; i < enterRoom_PK.Player.Count; i++)
                     {
-                        Debug.Log($"{enterRoom_PK.Player[i].Name}");
                         if (NetworkManager.instance.MyPlayerID == enterRoom_PK.Player[i].PlayerId)
                             room.SetMyPlayerNameText(enterRoom_PK.Player[i].Name);
                         else

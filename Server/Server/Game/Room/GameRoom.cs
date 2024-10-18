@@ -65,8 +65,6 @@ namespace Server.Game.Room
 
             
             EnterRoom.Player.Add(player.Info);
-            
-
             player.Session.Send(EnterRoom);
 
             Lobby room = RoomManager.Instance.Find<Lobby>(0);
@@ -80,11 +78,10 @@ namespace Server.Game.Room
             Player exitPlayer = player;
 
 
-            //나가기 버튼 누른유저 방에서 나가기
+            //나가기 버튼 누른 유저에게 전송 - 방에서 나가라
             S_LeaveRoom leaveRoom = new S_LeaveRoom();
             leaveRoom.Player = exitPlayer.Info;
             player.Session.Send(leaveRoom);
-
 
             for (int i = 0; i<_players.Length; i++)
             {
@@ -97,6 +94,15 @@ namespace Server.Game.Room
 
             this.PlayerCount--;
 
+            //방에 머물고 있는 유저에게 전송 - 적 유저 정보 삭제
+            Player stayPlayer = _players.FirstOrDefault(p => p != null);
+            if (stayPlayer != null)
+            {
+                S_LeaveRoom sendEnemyplayer = new S_LeaveRoom();
+                sendEnemyplayer.Player = exitPlayer.Info;
+                stayPlayer.Session.Send(sendEnemyplayer);
+            }
+
             if (this.HostID == player.Info.PlayerId)
             {
                 if (!_players.All(p => p == null))
@@ -106,24 +112,16 @@ namespace Server.Game.Room
                         if (p != null)
                         {
                             this.HostID = p.Info.PlayerId;
-
-                            S_LeaveRoom sendEnemyplayer = new S_LeaveRoom();
-                            sendEnemyplayer.Player = exitPlayer.Info;
-                            p.Session.Send(sendEnemyplayer);
-
                             break;
                         }
                     }
                 }
                 else
                 {
-                   // S_LeaveRoom leaveRoom = new S_LeaveRoom();
-
                     RoomManager.Instance.Remove(this.RoomId);
                     Console.WriteLine("방에 유저가 없어서 방 삭제");
                 }
             }
-
 
             Rooms room = RoomManager.Instance.Find<Lobby>(0);
             room.SendRoomList();

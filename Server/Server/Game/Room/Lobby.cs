@@ -20,6 +20,8 @@ namespace Server.Game.Room
 
             _players.Add(player.Info.PlayerId, player);
 
+            
+
             //S_EnterLobby EnterLobby_PK = new S_EnterLobby();
 
             //foreach (Player p in _players.Values)

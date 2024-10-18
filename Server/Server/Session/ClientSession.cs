@@ -73,8 +73,17 @@ namespace Server
 
         public override async void OnDisconnected(EndPoint endPoint)
         {
-            Lobby room = RoomManager.Instance.Find<Lobby>(MyPlayer.Room.RoomId);
-            room.Push(room.LeaveRoom, MyPlayer);
+            if (MyPlayer.Room is Lobby)
+            {
+                Lobby room = RoomManager.Instance.Find<Lobby>(MyPlayer.Room.RoomId);
+                room.Push(room.LeaveRoom, MyPlayer);
+            }
+            else if (MyPlayer.Room is GameRoom)
+            {
+                GameRoom room = RoomManager.Instance.Find<GameRoom>(MyPlayer.Room.RoomId);
+                room.Push(room.LeaveRoom, MyPlayer);
+            }
+
             SessionManager.Instance.Remove(this);
 
             await OnLogout(this.MyPlayer.Info.PlayerId);

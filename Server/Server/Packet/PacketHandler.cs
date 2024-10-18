@@ -34,7 +34,10 @@ internal class PacketHandler
 
         Player player = clientSession.MyPlayer;
 
-        Rooms room = RoomManager.Instance.Find<GameRoom>(enterRoom.RoomID);
+        Rooms room = RoomManager.Instance.Find<Lobby>(0);
+        room.Push(room.LeaveRoom, player);
+
+        room = RoomManager.Instance.Find<GameRoom>(enterRoom.RoomID);
         room.Push(room.EnterRoom, player);
     }
 
