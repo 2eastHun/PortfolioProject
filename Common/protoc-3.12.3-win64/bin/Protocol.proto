@@ -16,13 +16,18 @@ enum MsgId {
 	C_LEAVE_ROOM = 8;
 	S_LEAVE_GAME = 9;
 	C_CREATE_ROOM = 10;
-	S_NEW_HOST = 11;
-	S_ENTER_BATTLEFIELD = 12;
-	C_MOVE = 13;
-	S_MOVE = 14;
-	S_STOP_MOVE = 15;
-	C_STOP_MOVE = 16;
+	S_ENTER_BATTLEFIELD = 11;
+	S_NEW_HOST = 12;
+	S_READY = 13;
+	C_READY = 14;
+	S_START = 15;
+	C_START = 16;
+	C_MOVE = 17;
+	S_MOVE = 18;
+	S_STOP_MOVE = 19;
+	C_STOP_MOVE = 20;
 }
+
 enum RoomType {
 	Lobby = 0;
 	GameRoom = 1;
@@ -75,6 +80,7 @@ message S_EnterLobby {
 
 message S_EnterRoom {
 	repeated PlayerInfo player = 1;
+	RoomInfo room = 2;
 }
 
 message C_EnterRoom {
@@ -100,8 +106,24 @@ message C_CreateRoom {
 }
 
 message S_NewHost {
+}
+
+message S_Ready {
+	bool isReady = 1;
+}
+
+message C_Ready {
+	
+}
+
+message S_Start {
 
 }
+
+message C_Start {
+	
+}
+
 
 message S_EnterBattlefield {
 	int32 player1ID = 1;
@@ -143,7 +165,8 @@ message C_StopMove {
 message PlayerInfo {
 	int32 playerId = 1;
 	string name = 2;
-	PositionInfo posInfo = 3;
+	bool isReady = 3;
+	PositionInfo posInfo = 4;
 }
 
 message RoomInfo {
@@ -151,7 +174,6 @@ message RoomInfo {
 	string name = 2;
 	int32 playerCount = 3;
 	int32 hostID = 4;
-	bool isReady = 5;
 }
 
 message PositionInfo {
@@ -170,8 +192,4 @@ message StatInfo {
 	int32 attack = 4;
 	float speed = 5;
 	int32 totalExp = 6;
-}
-
-message S_BroadcastTest{
-
 }

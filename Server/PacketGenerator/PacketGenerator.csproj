@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>flase</AppendTargetFrameworkToOutputPath>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <OutputPath>D:\Visual Stdio Project\PortfolioProject\PacketGenerator\bin</OutputPath>
-    <BaseOutputPath>D:\Visual Stdio Project\PortfolioProject\PacketGenerator\bin</BaseOutputPath>
+    <OutputPath>C:\Project\PortfolioProject\PacketGenerator\bin</OutputPath>
+    <BaseOutputPath>C:\Project\PortfolioProject\PacketGenerator\bin</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>

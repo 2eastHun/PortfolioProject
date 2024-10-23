@@ -30,6 +30,8 @@ class PacketManager
 		_handler.Add((ushort)MsgId.SLoginSuccess, PacketHandler.S_LoginSuccessHandler);		
 		_onRecv.Add((ushort)MsgId.SRoomList, MakePacket<S_RoomList>);
 		_handler.Add((ushort)MsgId.SRoomList, PacketHandler.S_RoomListHandler);		
+		_onRecv.Add((ushort)MsgId.SEnterLobby, MakePacket<S_EnterLobby>);
+		_handler.Add((ushort)MsgId.SEnterLobby, PacketHandler.S_EnterLobbyHandler);		
 		_onRecv.Add((ushort)MsgId.SEnterRoom, MakePacket<S_EnterRoom>);
 		_handler.Add((ushort)MsgId.SEnterRoom, PacketHandler.S_EnterRoomHandler);		
 		_onRecv.Add((ushort)MsgId.SLeaveRoom, MakePacket<S_LeaveRoom>);
@@ -38,6 +40,12 @@ class PacketManager
 		_handler.Add((ushort)MsgId.SLeaveGame, PacketHandler.S_LeaveGameHandler);		
 		_onRecv.Add((ushort)MsgId.SEnterBattlefield, MakePacket<S_EnterBattlefield>);
 		_handler.Add((ushort)MsgId.SEnterBattlefield, PacketHandler.S_EnterBattlefieldHandler);		
+		_onRecv.Add((ushort)MsgId.SNewHost, MakePacket<S_NewHost>);
+		_handler.Add((ushort)MsgId.SNewHost, PacketHandler.S_NewHostHandler);		
+		_onRecv.Add((ushort)MsgId.SReady, MakePacket<S_Ready>);
+		_handler.Add((ushort)MsgId.SReady, PacketHandler.S_ReadyHandler);		
+		_onRecv.Add((ushort)MsgId.SStart, MakePacket<S_Start>);
+		_handler.Add((ushort)MsgId.SStart, PacketHandler.S_StartHandler);		
 		_onRecv.Add((ushort)MsgId.SMove, MakePacket<S_Move>);
 		_handler.Add((ushort)MsgId.SMove, PacketHandler.S_MoveHandler);		
 		_onRecv.Add((ushort)MsgId.SStopMove, MakePacket<S_StopMove>);

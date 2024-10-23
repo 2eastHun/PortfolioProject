@@ -30,6 +30,18 @@ public class Room : MonoBehaviour
         enemyPlayerName.GetComponent<TMPro.TextMeshProUGUI>().text = name;
     }
 
+    public void StartButton()
+    {
+        C_Start start = new C_Start();
+        NetworkManager.instance.Send(start);
+    }
+
+    public void ReadyButton()
+    {
+        C_Ready ready = new C_Ready();
+        NetworkManager.instance.Send(ready);
+    }
+
     public void ExitButton()
     {
         C_LeaveRoom leaveRoom = new C_LeaveRoom();

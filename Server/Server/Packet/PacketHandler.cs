@@ -80,7 +80,40 @@ internal class PacketHandler
         room.Push(room.SendRoomList);
     }
 
-    
+    public static void C_ReadyHandler(PacketSession session, IMessage packet)
+    {
+        C_Ready ready = packet as C_Ready;
+        ClientSession clientSession = session as ClientSession;
+
+        Player player = clientSession.MyPlayer;
+
+        GameRoom room = RoomManager.Instance.Find<GameRoom>(player.Room.RoomId);
+        room.Push(room.Ready, player);
+    }
+
+    public static void C_StartHandler(PacketSession session, IMessage packet)
+    {
+        C_Start start = packet as C_Start;
+        ClientSession clientSession = session as ClientSession;
+
+        Player player = clientSession.MyPlayer;
+        GameRoom room = RoomManager.Instance.Find<GameRoom>(player.Room.RoomId);
+        room.Push(room.Start, player);
+    }
+
+    //public static void C_ReadyCancelHandler(PacketSession session, IMessage packet)
+    //{
+    //    C_ReadyCancel readyCancel = packet as C_ReadyCancel;
+    //    ClientSession clientSession = session as ClientSession;
+
+    //    Player player = clientSession.MyPlayer;
+
+    //    GameRoom room = RoomManager.Instance.Find<GameRoom>(player.Room.RoomId);
+    //    room.Push(room.Ready, player);
+
+    //}
+
+
 
     public static void C_MoveHandler(PacketSession session, IMessage packet)
     {

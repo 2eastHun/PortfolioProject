@@ -89,7 +89,13 @@ class PacketHandler
                     // Room 씬이 로드되었으므로 이벤트 핸들러 제거
                     SceneManager.sceneLoaded -= OnRoomSceneLoaded;
 
-                    // Room 객체를 찾아 SetMyPlayerNameText 메서드 호출
+                    GameObject button = GameObject.Find("Canvas").transform.Find("StartOrReady").gameObject;
+
+                    if (enterRoom_PK.Room.HostID == NetworkManager.instance.MyPlayerID)
+                        button.transform.Find("StartButton").gameObject.SetActive(true);
+                    else
+                        button.transform.Find("Ready").Find("ReadyButton").gameObject.SetActive(true);
+
                     Room room = GameObject.FindObjectOfType<Room>();
                     if (room != null)
                     {
@@ -108,50 +114,7 @@ class PacketHandler
                     }
                 }
             }
-
-            //GameObject roomObject = GameObject.FindObjectOfType<Room>().gameObject;
-            //if (roomObject != null)
-            //{
-            //    Debug.Log("asd");
-            //    Room room = roomObject.GetComponent<Room>();
-            //    if (room != null)
-            //    {
-            //        Debug.Log("asd");
-            //        for (int i = 0; i < enterLobby_PK.Player.Count; i++)
-            //        {
-            //            Debug.Log(enterLobby_PK.Player[0].PlayerId);
-            //            if (NetworkManager.instance.MyPlayerID == enterLobby_PK.Player[0].PlayerId)
-            //            {
-            //                room.SetMyPlayerNameText(enterLobby_PK.Player[0].Name);
-            //                room.SetEnemyNameText(enterLobby_PK.Player[1].Name);
-
-            //            }
-            //            else
-            //            {
-
-            //                room.SetMyPlayerNameText(enterLobby_PK.Player[1].Name);
-            //                room.SetEnemyNameText(enterLobby_PK.Player[0].Name);
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Debug.LogError("Room 컴포넌트를 찾을 수 없습니다.");
-            //    }
-            //}
-            //else
-            //{
-            //    Debug.LogError("Room 객체를 찾을 수 없습니다.");
-            //}
         }
-
-
-        //foreach(var player in enterLobby_PK.Player)
-        //{
-        //    Debug.Log($"ID: {player.PlayerId} Name: {player.Name}");
-        //}
-
-        
     }
 
     public static void S_LeaveRoomHandler(PacketSession session, IMessage packet)
@@ -183,9 +146,38 @@ class PacketHandler
 
     }
 
-    public static void S_NewHost(PacketSession session, IMessage packet)
+    public static void S_NewHostHandler(PacketSession session, IMessage packet)
     {
         S_NewHost newHost = packet as S_NewHost;
+        Debug.Log("새로운 방장이 되었습니다.");
+
+        GameObject button = GameObject.Find("Canvas").transform.Find("StartOrReady").gameObject;
+
+        button.transform.Find("Start").gameObject.SetActive(true);
+        button.transform.Find("Ready").Find("ReadyButton").gameObject.SetActive(false);
+        button.transform.Find("Ready").Find("CancelButton").gameObject.SetActive(false);
+    }
+
+    public static void S_ReadyHandler(PacketSession session, IMessage packet)
+    {
+        S_Ready ready = packet as S_Ready;
+
+        GameObject button = GameObject.Find("Canvas").transform.Find("StartOrReady").gameObject;
+
+        if(ready.IsReady == true)
+        {
+            button.transform.Find("Ready").Find("ReadyButton").gameObject.SetActive(false);
+            button.transform.Find("Ready").Find("CancelButton").gameObject.SetActive(true);
+        }
+        else
+        {
+            button.transform.Find("Ready").Find("ReadyButton").gameObject.SetActive(true);
+            button.transform.Find("Ready").Find("CancelButton").gameObject.SetActive(false);
+        }
+    }
+
+    public static void S_StartHandler(PacketSession session, IMessage packet)
+    {
 
     }
 
@@ -255,15 +247,6 @@ class PacketHandler
 
 
     }
-
-    public static void S_BroadcastTestHandler(PacketSession session, IMessage packet)
-    {
-        S_BroadcastTest testPacket = packet as S_BroadcastTest;
-
-        GameObject.Find("Canvas").transform.Find("Test").gameObject.SetActive(true);
-    }
-
-    
 }
 
 

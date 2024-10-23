@@ -23,9 +23,7 @@ namespace Server.Game.Room
         public int RoomId { get { return Info.Id; } set { Info.Id = value; } }
         public string RoomName { get { return Info.Name; } set { Info.Name = value; } }
         public int PlayerCount { get { return Info.PlayerCount; } set { Info.PlayerCount = value; } }
-
         public int HostID { get { return Info.HostID; } set { Info.HostID = value; } }
-        public bool IsReady { get { return Info.IsReady; } set { Info.IsReady = value; } }
 
         public RoomInfo Info { get; set; } = new RoomInfo();
 

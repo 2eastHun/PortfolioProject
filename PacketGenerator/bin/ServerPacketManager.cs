@@ -25,7 +25,23 @@ class PacketManager
 
 	/// <summary> 패킷을 등록하는 함수 </summary>
 	public void Register()
-	{
+	{		
+		_onRecv.Add((ushort)MsgId.CLogin, MakePacket<C_Login>);
+		_handler.Add((ushort)MsgId.CLogin, PacketHandler.C_LoginHandler);		
+		_onRecv.Add((ushort)MsgId.CRoomList, MakePacket<C_RoomList>);
+		_handler.Add((ushort)MsgId.CRoomList, PacketHandler.C_RoomListHandler);		
+		_onRecv.Add((ushort)MsgId.CEnterRoom, MakePacket<C_EnterRoom>);
+		_handler.Add((ushort)MsgId.CEnterRoom, PacketHandler.C_EnterRoomHandler);		
+		_onRecv.Add((ushort)MsgId.CLeaveRoom, MakePacket<C_LeaveRoom>);
+		_handler.Add((ushort)MsgId.CLeaveRoom, PacketHandler.C_LeaveRoomHandler);		
+		_onRecv.Add((ushort)MsgId.CCreateRoom, MakePacket<C_CreateRoom>);
+		_handler.Add((ushort)MsgId.CCreateRoom, PacketHandler.C_CreateRoomHandler);		
+		_onRecv.Add((ushort)MsgId.CMove, MakePacket<C_Move>);
+		_handler.Add((ushort)MsgId.CMove, PacketHandler.C_MoveHandler);		
+		_onRecv.Add((ushort)MsgId.CStopMove, MakePacket<C_StopMove>);
+		_handler.Add((ushort)MsgId.CStopMove, PacketHandler.C_StopMoveHandler);		
+		_onRecv.Add((ushort)MsgId.CTest, MakePacket<C_Test>);
+		_handler.Add((ushort)MsgId.CTest, PacketHandler.C_TestHandler);
 	}
 
 	/// <summary>패킷 역직렬화 함수</summary>

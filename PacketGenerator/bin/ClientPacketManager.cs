@@ -26,14 +26,28 @@ class PacketManager
 	/// <summary> 패킷을 등록하는 함수 </summary>
 	public void Register()
 	{		
-		_onRecv.Add((ushort)MsgId.SEnterGame, MakePacket<S_EnterGame>);
-		_handler.Add((ushort)MsgId.SEnterGame, PacketHandler.S_EnterGameHandler);		
+		_onRecv.Add((ushort)MsgId.SLoginSuccess, MakePacket<S_LoginSuccess>);
+		_handler.Add((ushort)MsgId.SLoginSuccess, PacketHandler.S_LoginSuccessHandler);		
+		_onRecv.Add((ushort)MsgId.SRoomList, MakePacket<S_RoomList>);
+		_handler.Add((ushort)MsgId.SRoomList, PacketHandler.S_RoomListHandler);		
+		_onRecv.Add((ushort)MsgId.SEnterLobby, MakePacket<S_EnterLobby>);
+		_handler.Add((ushort)MsgId.SEnterLobby, PacketHandler.S_EnterLobbyHandler);		
+		_onRecv.Add((ushort)MsgId.SEnterRoom, MakePacket<S_EnterRoom>);
+		_handler.Add((ushort)MsgId.SEnterRoom, PacketHandler.S_EnterRoomHandler);		
+		_onRecv.Add((ushort)MsgId.SLeaveRoom, MakePacket<S_LeaveRoom>);
+		_handler.Add((ushort)MsgId.SLeaveRoom, PacketHandler.S_LeaveRoomHandler);		
 		_onRecv.Add((ushort)MsgId.SLeaveGame, MakePacket<S_LeaveGame>);
 		_handler.Add((ushort)MsgId.SLeaveGame, PacketHandler.S_LeaveGameHandler);		
-		_onRecv.Add((ushort)MsgId.SSpawn, MakePacket<S_Spawn>);
-		_handler.Add((ushort)MsgId.SSpawn, PacketHandler.S_SpawnHandler);		
-		_onRecv.Add((ushort)MsgId.SDespawn, MakePacket<S_Despawn>);
-		_handler.Add((ushort)MsgId.SDespawn, PacketHandler.S_DespawnHandler);
+		_onRecv.Add((ushort)MsgId.SNewHost, MakePacket<S_NewHost>);
+		_handler.Add((ushort)MsgId.SNewHost, PacketHandler.S_NewHostHandler);		
+		_onRecv.Add((ushort)MsgId.SEnterBattlefield, MakePacket<S_EnterBattlefield>);
+		_handler.Add((ushort)MsgId.SEnterBattlefield, PacketHandler.S_EnterBattlefieldHandler);		
+		_onRecv.Add((ushort)MsgId.SMove, MakePacket<S_Move>);
+		_handler.Add((ushort)MsgId.SMove, PacketHandler.S_MoveHandler);		
+		_onRecv.Add((ushort)MsgId.SStopMove, MakePacket<S_StopMove>);
+		_handler.Add((ushort)MsgId.SStopMove, PacketHandler.S_StopMoveHandler);		
+		_onRecv.Add((ushort)MsgId.STest, MakePacket<S_Test>);
+		_handler.Add((ushort)MsgId.STest, PacketHandler.S_TestHandler);
 	}
 
 	/// <summary>패킷 역직렬화 함수</summary>

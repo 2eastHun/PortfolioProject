@@ -62,6 +62,8 @@ namespace PacketGenerator
 
                     string packetName = $"C_{msgName.Substring(1)}";
                     serverRegister += string.Format(PacketFormat.managerRegisterFormat, msgName, packetName);
+
+                    Console.WriteLine(serverRegister);
                 }
             }
 
